@@ -121,3 +121,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chanceSpawn: 0.2
+  config: {fileID: 11400000, guid: 6558c2aeac0c9774c9946535dffa1018, type: 2}

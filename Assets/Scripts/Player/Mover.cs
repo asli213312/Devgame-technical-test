@@ -42,7 +42,7 @@ public class Mover : MonoBehaviour, IMovable
         _moveStrategy.Handle();
     }
 
-    private void SelectMoveStrategy() 
+    public void SelectMoveStrategy() 
     {
         AbstractMoveStrategy selectedStrategy = null;
 

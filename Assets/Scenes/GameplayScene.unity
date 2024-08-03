@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
+  - component: {fileID: 330585548}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -210,7 +211,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.70712364, y: -0, z: -0, w: 0.70708996}
-  m_LocalPosition: {x: 0, y: 18.8, z: 0.12}
+  m_LocalPosition: {x: 0, y: 18.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -260,6 +261,21 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &330585548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e7da2d5a7e62d42a17b90ebf64bba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 599954714}
+  offset: {x: 0, y: 0, z: 0}
+  speed: 5
 --- !u!1 &399103158
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +312,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.98570514, y: 0.33471835, z: 0.5698499}
+  m_Size: {x: 1.4379529, y: 0.33471835, z: 1.0874605}
   m_Center: {x: 0, y: -0.1004588, z: 0.006061571}
 --- !u!4 &399103162
 Transform:
@@ -479,9 +495,7 @@ MonoBehaviour:
   minDistance: 3
   mapBounds: {fileID: 399103159}
   playerController: {fileID: 599954716}
-  zonePrefabs:
-  - {fileID: 3775365418950203204, guid: df768e302c7d7814881637f235816892, type: 3}
-  - {fileID: 3641149349813250560, guid: e707d0c15c4ab0e4ebeff8fe6e903e6c, type: 3}
+  config: {fileID: 11400000, guid: 182199fb1093b664b8a350a78d92d039, type: 2}
 --- !u!1 &599954710
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,6 +511,7 @@ GameObject:
   - component: {fileID: 599954716}
   - component: {fileID: 599954715}
   - component: {fileID: 599954718}
+  - component: {fileID: 599954719}
   - component: {fileID: 599954717}
   m_Layer: 0
   m_Name: Player
@@ -609,7 +624,7 @@ MonoBehaviour:
   moveType: 1
   playerObj: {fileID: 599954714}
   options:
-    rid: 7502081143129243896
+    rid: 7502081165363511311
   _moveLinearOptions:
     moveSpeed: 0
     direction: {x: 0, y: 0, z: 0}
@@ -618,7 +633,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 7502081143129243896
+    - rid: 7502081165363511311
       type: {class: MoveOrthogonallyOptions, ns: , asm: Assembly-CSharp}
       data:
         moveSpeed: 5
@@ -678,6 +693,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounds: {fileID: 399103159}
+--- !u!114 &599954719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599954710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbeab1083a3a65048a4093a943918451, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraFollower: {fileID: 330585548}
+  playerController: {fileID: 599954716}
+  mapBoundsCollider: {fileID: 399103159}
 --- !u!1 &824275303
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,7 +867,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000014901159, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -1.68, z: 0.19}
-  m_LocalScale: {x: 2.7447956, y: 2.7447956, z: 1.5571226}
+  m_LocalScale: {x: 4, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}

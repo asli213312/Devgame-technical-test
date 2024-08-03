@@ -8,9 +8,10 @@ public class ZoneSpawner : MonoBehaviour
     [SerializeField] private Collider mapBounds;
     [SerializeField] private PlayerController playerController;
 
-    [SerializeField, SerializeReference] private AbstractZone[] zonePrefabs;
+    [SerializeField] private ZonesConfig config;
 
     private List<Vector3> _availablePositions = new List<Vector3>();
+    private Dictionary<AbstractZone, int> _currentZones = new Dictionary<AbstractZone, int>();
     private float _timeSinceLastSpawn;
 
     private void Start()
@@ -105,7 +106,43 @@ public class ZoneSpawner : MonoBehaviour
 
         if (!foundPosition) return;
 
-        AbstractZone randomZonePrefab = zonePrefabs[Random.Range(0, zonePrefabs.Length)];
-        Instantiate(randomZonePrefab, spawnPosition, Quaternion.identity);
+        AbstractZoneConfig randomZoneConfig = GetRandomZoneConfig();
+        if (randomZoneConfig == null) return;
+
+        AbstractZone zone = Instantiate(randomZoneConfig.Prefab, spawnPosition, Quaternion.identity);
+
+        if (_currentZones.ContainsKey(randomZoneConfig.Prefab))
+        {
+            _currentZones[randomZoneConfig.Prefab]++;
+        }
+        else
+        {
+            _currentZones[randomZoneConfig.Prefab] = 1;
+        }
+    }
+
+    private AbstractZoneConfig GetRandomZoneConfig()
+    {
+        List<AbstractZoneConfig> availableConfigs = new List<AbstractZoneConfig>();
+        foreach (var zoneConfig in config.zones)
+        {
+            if (!IsMaxCountZonesType(zoneConfig))
+            {
+                availableConfigs.Add(zoneConfig);
+            }
+        }
+
+        if (availableConfigs.Count == 0) return null;
+
+        return availableConfigs[Random.Range(0, availableConfigs.Count)];
+    }
+
+    private bool IsMaxCountZonesType(AbstractZoneConfig zoneConfig)
+    {
+        if (_currentZones.ContainsKey(zoneConfig.Prefab))
+        {
+            return _currentZones[zoneConfig.Prefab] >= zoneConfig.maxCount;
+        }
+        return false;
     }
 }

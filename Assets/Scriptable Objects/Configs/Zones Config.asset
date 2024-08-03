@@ -9,10 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d15ef614d30c76409bbe273e7549a3e, type: 3}
-  m_Name: Slow Zone Config
+  m_Script: {fileID: 11500000, guid: 53f1dfb8222e85043a233d8364fe62b0, type: 3}
+  m_Name: Zones Config
   m_EditorClassIdentifier: 
-  maxCount: 3
-  blank:
-    m_Handle: 0
-  prefab: {fileID: 3641149349813250560, guid: e707d0c15c4ab0e4ebeff8fe6e903e6c, type: 3}
+  zones:
+  - {fileID: 11400000, guid: 6558c2aeac0c9774c9946535dffa1018, type: 2}
+  - {fileID: 11400000, guid: 51cf2719099093241b6836e50f93fd34, type: 2}
