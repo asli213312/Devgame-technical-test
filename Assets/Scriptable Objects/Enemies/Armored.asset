@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd9bcdace0df72348a3795fc1376eacb, type: 3}
-  m_Name: Pistol Config
+  m_Script: {fileID: 11500000, guid: 9b4850152d4ac3f4ebc94aeffd44a20b, type: 3}
+  m_Name: Armored
   m_EditorClassIdentifier: 
-  bulletSpeed: 10
-  bulletRadius: 0.001
-  bulletPrefab: {fileID: 5602145459372206159, guid: 023ea9235c19f434091bd2e270cdbfa0,
-    type: 3}
-  maxDistance: 100
-  damage: 10
+  maxHealth: 50
+  prefab: {fileID: 4215448366666523186, guid: 50024c5d351db7145876e7bef9227149, type: 3}
+  spawnChance: 0.1
+  maxCount: 0
+  moveSpeed: 2
+  score: 30
+  blank2:
+    m_Handle: 0

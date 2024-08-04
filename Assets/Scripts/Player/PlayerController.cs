@@ -1,16 +1,19 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Collider))]
-public class PlayerController : MonoBehaviour, IZoneInteractable
+public class PlayerController : MonoBehaviour, IZoneInteractable, IWeaponable
 {
     [SerializeField] private Transform playerObj;
     [SerializeField] private Mover mover;
-    [SerializeField, SerializeReference] private AbstractWeapon weapon;
+    [SerializeField, SerializeReference] private AbstractWeapon[] weapons;
 
     [Header("Options")]
     [SerializeField] private PlayerOptions options;
 
     public event System.Action OnCompleteRotation;
+
+    public AbstractWeapon CurrentWeapon { get; set; }
+    public WeaponCollisionHandler WeaponCollisionHandler { get; private set; }
 
     private Quaternion _targetRotation;
 
@@ -20,18 +23,25 @@ public class PlayerController : MonoBehaviour, IZoneInteractable
 
     private void Start() 
     {
-        mover.Initialize();
-        weapon.Initialize();
+        CurrentWeapon = weapons[Random.Range(0, weapons.Length)];
+
+        InitializeModules();
 
         _rotationSpeed = options.rotationSpeed;
         _health = options.health;
 
-        OnCompleteRotation += weapon.Shoot;
+        foreach (var weapon in weapons)
+        {
+            OnCompleteRotation += weapon.Shoot;   
+        }
     }
 
     private void OnDestroy() 
     {
-        OnCompleteRotation -= weapon.Shoot;
+        foreach (var weapon in weapons)
+        {
+            OnCompleteRotation -= weapon.Shoot;   
+        }
     }
 
     private void Update() 
@@ -39,7 +49,7 @@ public class PlayerController : MonoBehaviour, IZoneInteractable
         HandlePlayerRotation();
 
         mover.Handle();
-        weapon.Handle();
+        CurrentWeapon.Handle();
     }
 
     private void HandlePlayerRotation()
@@ -71,6 +81,28 @@ public class PlayerController : MonoBehaviour, IZoneInteractable
         {
             OnCompleteRotation?.Invoke();
             _hasCompletedRotation = true;
+        }
+    }
+
+    private void InitializeModules() 
+    {
+        WeaponCollisionHandler = new WeaponCollisionHandler(weapons);
+        mover.Initialize();
+
+        InitializeWeapons();
+
+        void InitializeWeapons() 
+        {
+            foreach (var w in weapons)
+            {
+                w.Initialize();
+
+                if (w != CurrentWeapon) 
+                {
+                    w.gameObject.SetActive(false);
+                    w.OnHideWeapon();
+                }
+            }
         }
     }
 }

@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class ObjectPool
 {
+    public GameObject Parent { get; private set; }
+
     private Queue<Transform> _objectsQueue = new Queue<Transform>();
-    private int _poolSize;
 
     private Transform _prefab;
 
     public ObjectPool(GameObject parent, Transform prefab, int poolSize)
     {
         _prefab = prefab;
+        Parent = parent;
 
         for (int i = 0; i < poolSize; i++)
         {

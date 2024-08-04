@@ -7,5 +7,7 @@ public abstract class AbstractZoneConfig : ScriptableObject
 
     [Header("Additional")]
     [SerializeField] private UnityEngine.SceneManagement.Scene blank;
-    public abstract AbstractZone Prefab { get; set; }
+    public AbstractZone Prefab => ZonePrefab;
+
+    protected abstract AbstractZone ZonePrefab { get; set; }
 }

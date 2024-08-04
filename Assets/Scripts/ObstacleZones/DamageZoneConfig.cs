@@ -5,5 +5,5 @@ public class DamageZoneConfig : AbstractZoneConfig
 {
     [SerializeField] private DamageZone prefab;
 
-    public override AbstractZone Prefab { get => prefab; set => prefab = value as DamageZone; }
+    protected override AbstractZone ZonePrefab { get => prefab; set => prefab = value as DamageZone; }
 }

@@ -5,5 +5,5 @@ public class SlowZoneConfig : AbstractZoneConfig
 {
     [SerializeField] private SlowZone prefab;
 
-    public override AbstractZone Prefab { get => prefab; set => prefab = value as SlowZone; }
+    protected override AbstractZone ZonePrefab { get => prefab; set => prefab = value as SlowZone; }
 }

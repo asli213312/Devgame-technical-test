@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd9bcdace0df72348a3795fc1376eacb, type: 3}
-  m_Name: Pistol Config
+  m_Script: {fileID: 11500000, guid: d7733f9f00c22a04fb05aeaaf844e39a, type: 3}
+  m_Name: Shotgun
   m_EditorClassIdentifier: 
-  bulletSpeed: 10
+  bulletSpeed: 15
   bulletRadius: 0.001
   bulletPrefab: {fileID: 5602145459372206159, guid: 023ea9235c19f434091bd2e270cdbfa0,
     type: 3}
-  maxDistance: 100
-  damage: 10
+  maxDistance: 7
+  damage: 5
+  pelletCount: 5
+  spreadAngle: 10
