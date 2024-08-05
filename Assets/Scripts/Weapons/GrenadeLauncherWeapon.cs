@@ -6,7 +6,7 @@ public class GrenadeLauncherWeapon : AbstractWeapon
 
     protected override AbstractWeaponConfig Config { get => config; set => config = value as GrenadeLauncherConfig; }
 
-    public override void Shoot()
+    protected override void HandleShoot()
     {
         Vector3 targetPosition = GetTargetPosition();
         Transform grenadeTransform = BulletsPool.Get(FirePoint.position);

@@ -6,6 +6,7 @@ public class PowerupsSpawner : MonoBehaviour
 {
     [SerializeField] private PowerupsConfig config;
     [SerializeField] private Collider mapBounds;
+    [SerializeField] private PlayerController playerController;
 
     private event System.Action<float> SpawnTimerChanged;
 

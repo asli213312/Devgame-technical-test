@@ -8,7 +8,7 @@ public class PistolWeapon : AbstractWeapon
 
     protected override AbstractWeaponConfig Config { get => config; set => config = value; }
 
-    public override void Shoot() 
+    protected override void HandleShoot() 
     {
         Transform bullet = BulletsPool.Get(FirePoint.position);
 

@@ -6,36 +6,17 @@ public class AssaultRifleWeapon : AbstractWeapon
 
     protected override AbstractWeaponConfig Config { get => config; set => config = value as AssaultRifleConfig; }
 
-    private bool _isShooting;
-    private float _shootInterval;
-    private float _nextShootTime;
-
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        _shootInterval = 60f / config.fireRate;
-    }
-
     public override void Handle() 
     {
         base.Handle();
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && IsCanFire())
         {
-            if (Time.time >= _nextShootTime)
-            {
-                Shoot();
-                _nextShootTime = Time.time + _shootInterval;
-            }
-        }
-        else 
-        {
-            _isShooting = false;
+            FireShoot();
         }
     }
 
-    public override void Shoot() 
+    protected override void HandleShoot() 
     {
         Transform bullet = BulletsPool.Get(FirePoint.position);
         bullet.transform.rotation = FirePoint.rotation;

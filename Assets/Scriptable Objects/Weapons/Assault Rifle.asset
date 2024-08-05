@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bce6a9a513a37524c9c394ddf98a6759, type: 3}
   m_Name: Assault Rifle
   m_EditorClassIdentifier: 
-  bulletSpeed: 15
+  bulletSpeed: 20
   bulletRadius: 0.001
   bulletPrefab: {fileID: 5602145459372206159, guid: 023ea9235c19f434091bd2e270cdbfa0,
     type: 3}

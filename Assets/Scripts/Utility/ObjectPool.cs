@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class ObjectPool
 {
-    public GameObject Parent { get; private set; }
+    public readonly GameObject Parent;
+    public readonly Transform Prefab;
 
     private Queue<Transform> _objectsQueue = new Queue<Transform>();
 
-    private Transform _prefab;
-
     public ObjectPool(GameObject parent, Transform prefab, int poolSize)
     {
-        _prefab = prefab;
+        Prefab = prefab;
         Parent = parent;
 
         for (int i = 0; i < poolSize; i++)
@@ -20,6 +19,16 @@ public class ObjectPool
             Transform newObj = InstantiateObj(Vector3.zero);
             newObj.parent = parent.transform;
             AddToPool(newObj);
+        }
+    }
+
+    public void Hide() 
+    {
+        Transform[] objectsArray = _objectsQueue.ToArray();
+
+        for (int i = objectsArray.Length - 1; i >= 0; i--)
+        {
+            AddToPool(objectsArray[i]);
         }
     }
 
@@ -31,8 +40,11 @@ public class ObjectPool
 
     public Transform Get(Vector3 position)
     {
-        if (_objectsQueue.Count == 0)
+        if (_objectsQueue.Count == 0) 
+        {
+            Debug.LogError("Pool queue is empty to get object!");
             return null;
+        }
         
         Transform newObj = _objectsQueue.Dequeue();
         newObj.transform.position = position;
@@ -42,6 +54,6 @@ public class ObjectPool
 
     private Transform InstantiateObj(Vector3 position)
     {
-        return UnityEngine.Object.Instantiate(_prefab, position, Quaternion.identity);
+        return UnityEngine.Object.Instantiate(Prefab, position, Quaternion.identity);
     }
 }

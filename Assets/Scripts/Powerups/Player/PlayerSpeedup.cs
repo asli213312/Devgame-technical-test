@@ -13,7 +13,9 @@ public class PlayerSpeedup : PlayerPowerup, ITimedPowerup
     protected override void OnCollidePlayer(PlayerController playerController) 
     {
         _initialSpeed = playerController.Mover.Speed;
-        playerController.Mover.Speed *= config.speedMultiplier;
+
+        if (_initialSpeed < _initialSpeed * config.speedMultiplier)
+            playerController.Mover.Speed *= config.speedMultiplier;
     }
 
     void ITimedPowerup.OnTimeEnd() 

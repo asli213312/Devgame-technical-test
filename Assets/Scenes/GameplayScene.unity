@@ -900,7 +900,7 @@ MonoBehaviour:
   moveType: 1
   playerObj: {fileID: 599954714}
   options:
-    rid: 7502081211312111718
+    rid: 7502081211312111812
   _moveLinearOptions:
     moveSpeed: 0
     direction: {x: 0, y: 0, z: 0}
@@ -909,7 +909,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 7502081211312111718
+    - rid: 7502081211312111812
       type: {class: MoveOrthogonallyOptions, ns: , asm: Assembly-CSharp}
       data:
         moveSpeed: 5
@@ -929,7 +929,9 @@ MonoBehaviour:
   mover: {fileID: 599954715}
   collisionHandler: {fileID: 599954718}
   weapons:
+  - {fileID: 8984019599588501546}
   - {fileID: 733062244}
+  - {fileID: 647835618}
   options: {fileID: 11400000, guid: 7a28531bac54f5a46bc7cbf81c0cf30d, type: 2}
 --- !u!114 &599954718
 MonoBehaviour:
@@ -1129,7 +1131,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &733062244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1408,7 +1410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1119015261
 Transform:
   m_ObjectHideFlags: 0

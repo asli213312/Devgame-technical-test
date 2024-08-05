@@ -6,9 +6,15 @@ public interface IWeaponable
 public interface IWeapon : IDamageable
 {
     AbstractWeaponConfig Data { get; }
+
+    void Initialize(ObjectPool bulletPool);
+    void Shoot();
+    void Prepare();
+    void Handle();
+    void Hide();
 }
 
-public interface IDamageable 
+public interface IDamageable
 {
     float Damage { get; }
 }

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCount: 5
   lifeTime: 5
-  spawnInterval: 5
+  spawnInterval: 3
   blank:
     m_Handle: 0
   duration: 10

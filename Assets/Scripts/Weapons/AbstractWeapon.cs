@@ -18,34 +18,52 @@ public abstract class AbstractWeapon : MonoBehaviour, IWeapon
 
     protected List<AbstractBullet> ActiveBullets = new();
 
-    protected virtual int BulletsPoolCount { get; } = 100;
+    protected float ShootInterval { get; private set; }
+    private float _nextShootTime;
 
-    public virtual void Handle() 
+    private void Update() 
     {
         HandleBullets();
     }
 
-    public virtual void Initialize() 
+    public virtual void Handle() { }
+
+    public virtual void Initialize(ObjectPool pool) 
     {
-        BulletsPool = new ObjectPool
-        (
-            new GameObject("BulletsPool"),
-            Config.bulletPrefab, 
-            BulletsPoolCount
-        );
+        BulletsPool = pool;
+
+        ShootInterval = 60f / Config.fireRate;
     }
 
     public virtual void Prepare() 
     {
-        BulletsPool.Parent.SetActive(true);
+        gameObject.SetActive(true);
     }
 
-    public virtual void OnHideWeapon() 
+    public virtual void Hide() 
     {
-        BulletsPool.Parent.SetActive(false);
+        gameObject.SetActive(false);
     }
 
-    public abstract void Shoot();
+    public void Shoot() 
+    {
+        if (IsCanFire())
+        {
+            FireShoot();
+            Debug.Log("Fired weapon");
+        }
+    }
+
+    protected abstract void HandleShoot();
+
+    protected void FireShoot() 
+    {
+        HandleShoot();
+        _nextShootTime = Time.time + ShootInterval;
+    }
+
+    protected bool IsCanFire() => Time.time >= _nextShootTime;
+    
     protected void HandleBullets() 
     {
         if (ActiveBullets.Count <= 0) return;
@@ -90,6 +108,10 @@ public abstract class AbstractWeapon : MonoBehaviour, IWeapon
         {
             ActiveBullets.Remove(bulletToRemove);
             BulletsPool.AddToPool(bullet);
+        }
+        else 
+        {
+            Debug.LogError("Can't find bullet to remove!");
         }
     }
 }

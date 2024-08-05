@@ -7,18 +7,28 @@ public class ShotgunWeapon : AbstractWeapon
 
     protected override AbstractWeaponConfig Config { get => config; set => config = value as ShotgunWeaponConfig; }
 
-    protected override int BulletsPoolCount => 200;
-
-    public override void Shoot()
+    protected override void HandleShoot()
     {
         int pelletCount = config.pelletCount;
         float spreadAngle = config.spreadAngle;
 
         float angleStep = spreadAngle / (pelletCount - 1);
 
+        if (BulletsPool == null) 
+        {
+            Debug.LogError("Bullets pool is empty");
+            return;
+        }
+
         for (int i = 0; i < pelletCount; i++)
         {
             Transform bullet = BulletsPool.Get(FirePoint.position);
+
+            if (bullet == null) 
+            {
+                Debug.LogError("Bullet is empty to spawn");
+                return;
+            }
             bullet.transform.rotation = FirePoint.rotation;
 
             float angle = -spreadAngle / 2 + i * angleStep;

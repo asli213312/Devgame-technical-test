@@ -13,7 +13,7 @@ public class EnemiesController : MonoBehaviour
     {
         spawner.Initialize(this);
 
-        spawner.OnEnemySpawned += playerController.WeaponCollisionHandler.AddTarget;
+        spawner.OnEnemySpawned += playerController.WeaponController.CollisionHandler.AddTarget;
         playerController.CollisionHandler.OnCollide += CheckCollisionEnemies;
 
         EnemyCollidedPlayer += OnPlayerCollided;
@@ -21,7 +21,7 @@ public class EnemiesController : MonoBehaviour
 
     private void OnDestroy() 
     {
-        spawner.OnEnemySpawned -= playerController.WeaponCollisionHandler.AddTarget;
+        spawner.OnEnemySpawned -= playerController.WeaponController.CollisionHandler.AddTarget;
         playerController.CollisionHandler.OnCollide -= CheckCollisionEnemies;
 
         EnemyCollidedPlayer += OnPlayerCollided;
