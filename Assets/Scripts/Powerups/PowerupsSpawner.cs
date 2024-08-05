@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class PowerupsSpawner : MonoBehaviour
     private event System.Action<float> SpawnTimerChanged;
 
     private List<AbstractPowerup> _powerups = new();
+
+    private Dictionary<AbstractPowerupConfig, bool> _dictionarySpawnPowerupReady;
 
     private Camera _camera;
 
@@ -32,6 +35,13 @@ public class PowerupsSpawner : MonoBehaviour
         _handler = new PowerupHandler(this);
 
         SpawnTimerChanged += OnSpawnTimerChange;
+
+        _dictionarySpawnPowerupReady = new Dictionary<AbstractPowerupConfig, bool>();
+
+        foreach (var powerupConfig in config.powerups)
+        {
+            _dictionarySpawnPowerupReady[powerupConfig] = false;
+        }
     }
 
     private void OnDestroy() 
@@ -55,22 +65,33 @@ public class PowerupsSpawner : MonoBehaviour
     {
         foreach (var powerupConfig in config.powerups)
         {
-            if (time <= powerupConfig.spawnInterval) continue;
+            if (_dictionarySpawnPowerupReady[powerupConfig]) continue;
 
-            Spawn(powerupConfig);
+            if (time >= powerupConfig.spawnInterval)
+            {
+                Spawn(powerupConfig);
+                _dictionarySpawnPowerupReady[powerupConfig] = true;
+            }
         }
 
-        if (time >= config.powerups[^1].spawnInterval)
+        if (_dictionarySpawnPowerupReady.Values.All(value => value))
+        {
+            foreach (var key in _dictionarySpawnPowerupReady.Keys.ToList())
+            {
+                _dictionarySpawnPowerupReady[key] = false;
+            }
+
             TimeSinceLastSpawn = 0;
+        }
     }
 
-    private void Spawn(AbstractPowerupConfig powerupConfig) 
+    private void Spawn(IPowerupConfig powerupConfig) 
     {
         Vector3 randomPosition = GetSpawnPosition();
 
-        var powerup = Instantiate(powerupConfig.Prefab, randomPosition, Quaternion.identity);
+        var powerup = Instantiate((AbstractPowerup)powerupConfig.Prefab, randomPosition, Quaternion.identity);
 
-        OnPowerupSpawned(powerup);
+        OnPowerupSpawned((AbstractPowerup)powerup);
     }
 
     private void OnPowerupSpawned(AbstractPowerup powerup) 

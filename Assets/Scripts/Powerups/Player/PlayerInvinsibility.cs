@@ -6,7 +6,7 @@ public class PlayerInvinsibility : PlayerPowerup, ITimedPowerup
 
     float ITimedPowerup.Duration => config.duration;
 
-    protected override AbstractPowerupConfig Config { get => config; set => config = value as InvinsibilityPowerupConfig; }
+    protected override IPowerupConfig Config { get => config; set => config = value as InvinsibilityPowerupConfig; }
 
     protected override void OnCollidePlayer(PlayerController playerController) 
     {

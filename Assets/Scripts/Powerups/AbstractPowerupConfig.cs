@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class AbstractPowerupConfig : ScriptableObject
+public abstract class AbstractPowerupConfig : ScriptableObject, IPowerupConfig
 {
     [Header("Base")]
     [SerializeField] public int maxCount;
@@ -9,8 +9,9 @@ public abstract class AbstractPowerupConfig : ScriptableObject
 
     [Header("Additional")]
     [SerializeField] private UnityEngine.SceneManagement.Scene blank;
+    
+    IPowerup IPowerupConfig.Prefab => PowerupPrefab;
+    float IPowerupConfig.LifeTime => lifeTime;
 
-    public AbstractPowerup Prefab => PowerupPrefab;
-
-    protected abstract AbstractPowerup PowerupPrefab { get; set; }
+    protected abstract IPowerup PowerupPrefab { get; set; }
 }

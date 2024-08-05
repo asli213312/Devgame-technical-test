@@ -4,7 +4,7 @@ public class PlayerSpeedup : PlayerPowerup, ITimedPowerup
 {
     [SerializeField] private SpeedupPowerupConfig config;
 
-    protected override AbstractPowerupConfig Config { get => config; set => config = value as SpeedupPowerupConfig; }
+    protected override IPowerupConfig Config { get => config; set => config = value as SpeedupPowerupConfig; }
 
     float ITimedPowerup.Duration => config.duration;
 

@@ -6,5 +6,5 @@ public class SpeedupPowerupConfig : TimedPowerupConfig
     [SerializeField] public PlayerSpeedup prefab;
     [SerializeField] public float speedMultiplier;
 
-    protected override AbstractPowerup PowerupPrefab { get => prefab; set => prefab = value as PlayerSpeedup; }
+    protected override IPowerup PowerupPrefab { get => prefab; set => prefab = value as PlayerSpeedup; }
 }

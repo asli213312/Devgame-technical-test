@@ -6,5 +6,5 @@ public class WeaponPowerupConfig : TimedPowerupConfig
     [SerializeField] public WeaponPowerup prefab;
     [SerializeField] public AbstractWeaponConfig[] weapons;
 
-    protected override AbstractPowerup PowerupPrefab { get => prefab; set => prefab = value as WeaponPowerup; }
+    protected override IPowerup PowerupPrefab { get => prefab; set => prefab = value as WeaponPowerup; }
 }

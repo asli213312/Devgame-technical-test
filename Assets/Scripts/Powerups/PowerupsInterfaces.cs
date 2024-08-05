@@ -1,6 +1,13 @@
 public interface IPowerup
 {
+    IPowerupConfig Data { get;}
     void Accept(IPowerupVisitor visitor);
+}
+
+public interface IPowerupConfig 
+{
+    IPowerup Prefab { get; }
+    float LifeTime { get; }
 }
 
 public interface ITimedPowerup : IPowerup

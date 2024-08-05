@@ -6,7 +6,7 @@ public class WeaponPowerup : PlayerPowerup, ITimedPowerup
 
     float ITimedPowerup.Duration => config.duration;
 
-    protected override AbstractPowerupConfig Config { get => config; set => config = value as WeaponPowerupConfig; }
+    protected override IPowerupConfig Config { get => config; set => config = value as WeaponPowerupConfig; }
 
     protected override void OnCollidePlayer(PlayerController playerController) 
     {

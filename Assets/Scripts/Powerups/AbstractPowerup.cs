@@ -6,7 +6,9 @@ public abstract class AbstractPowerup : MonoBehaviour, IPowerup
     public event System.Action<AbstractPowerup> OnDestroy;
     public event System.Action<AbstractPowerup> OnTrigger;
 
-    protected abstract AbstractPowerupConfig Config { get; set; }
+    IPowerupConfig IPowerup.Data => Config;
+
+    protected abstract IPowerupConfig Config { get; set; }
 
     protected Collider Collider { get; private set; }
 
@@ -16,7 +18,7 @@ public abstract class AbstractPowerup : MonoBehaviour, IPowerup
     {
         Collider = GetComponent<Collider>();
 
-        this.WaitForSeconds(Config.lifeTime, () =>
+        this.WaitForSeconds(Config.LifeTime, () =>
         {
             OnDestroy?.Invoke(this);
             Destroy(gameObject);
