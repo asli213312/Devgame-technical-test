@@ -1,9 +1,12 @@
 using UnityEngine;
 
 [RequireComponent(typeof(PlayerController))]
+[RequireComponent(typeof(Collider))]
 public class PlayerCollisionHandler : MonoBehaviour
 {
     [SerializeField] private Collider bounds;
+
+    public event System.Action<GameObject> OnCollide;
 
     private Vector3 _playerSize;
 
@@ -36,5 +39,10 @@ public class PlayerCollisionHandler : MonoBehaviour
         playerPosition.z = Mathf.Clamp(playerPosition.z, boundsArea.min.z + playerHalfSize.z, boundsArea.max.z - playerHalfSize.z);
 
         transform.position = playerPosition;
+    }
+
+    private void OnCollisionEnter(Collision collision) 
+    {
+        OnCollide?.Invoke(collision.gameObject);
     }
 }

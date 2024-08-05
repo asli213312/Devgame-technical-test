@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour, IZoneInteractable, IWeaponable
 {
     [SerializeField] private Transform playerObj;
     [SerializeField] private Mover mover;
+    [SerializeField] private PlayerCollisionHandler collisionHandler;
     [SerializeField, SerializeReference] private AbstractWeapon[] weapons;
 
     [Header("Options")]
@@ -12,23 +13,24 @@ public class PlayerController : MonoBehaviour, IZoneInteractable, IWeaponable
 
     public event System.Action OnCompleteRotation;
 
+    public Mover Mover => mover;
+    public PlayerCollisionHandler CollisionHandler => collisionHandler;
     public AbstractWeapon CurrentWeapon { get; set; }
     public WeaponCollisionHandler WeaponCollisionHandler { get; private set; }
+    public PlayerModel Model { get; private set; }
 
     private Quaternion _targetRotation;
-
-    private float _health;
     private float _rotationSpeed;
     private bool _hasCompletedRotation;
 
-    private void Start() 
+    private void Awake() 
     {
         CurrentWeapon = weapons[Random.Range(0, weapons.Length)];
+        Model = new PlayerModel();
 
         InitializeModules();
 
         _rotationSpeed = options.rotationSpeed;
-        _health = options.health;
 
         foreach (var weapon in weapons)
         {

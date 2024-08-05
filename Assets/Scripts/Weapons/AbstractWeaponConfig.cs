@@ -10,4 +10,5 @@ public abstract class AbstractWeaponConfig : ScriptableObject
     [Header("Weapon")]
     [SerializeField] public float maxDistance;
     [SerializeField] public float damage;
+    [SerializeField] public float fireRate;
 }

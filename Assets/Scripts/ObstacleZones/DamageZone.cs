@@ -9,7 +9,11 @@ public class DamageZone : AbstractZone
     {
         if (other.gameObject.TryGetComponent(out IZoneInteractable context) == false) return;
         
-        other.gameObject.SetActive(false);
+        if (context is PlayerController playerController && playerController.Model.IsInvinsibility == false) 
+        {
+            other.gameObject.SetActive(false);
+        }
+
         InvokeTrigger();
     }
 }

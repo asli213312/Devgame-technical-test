@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66287fe4b025de240b6d90374037d73c, type: 3}
+  m_Name: Weapon Powerup
+  m_EditorClassIdentifier: 
+  maxCount: 5
+  lifeTime: 5
+  spawnInterval: 10
+  blank:
+    m_Handle: 0
+  duration: 10
+  prefab: {fileID: 4749845570013235762, guid: 516cdef70bb5de94d9c8496d8f5b4323, type: 3}
+  weapons:
+  - {fileID: 11400000, guid: a1adb2e72bca9214bb56f275f180fb5f, type: 2}
+  - {fileID: 11400000, guid: bdace0fc634681d448d17b5521df8437, type: 2}
+  - {fileID: 11400000, guid: 65fdfc7ef6f9ef9488f94989cc5660d0, type: 2}
+  - {fileID: 11400000, guid: ef5be18ab23e5254280574b192622a8f, type: 2}

@@ -9,12 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd9bcdace0df72348a3795fc1376eacb, type: 3}
-  m_Name: Pistol Config
+  m_Script: {fileID: 11500000, guid: a48651f83aa6e134e9c6d8c7fe654163, type: 3}
+  m_Name: Invinsiblity
   m_EditorClassIdentifier: 
-  bulletSpeed: 10
-  bulletRadius: 0.001
-  bulletPrefab: {fileID: 5602145459372206159, guid: 023ea9235c19f434091bd2e270cdbfa0,
-    type: 3}
-  maxDistance: 100
-  damage: 10
+  maxCount: 5
+  lifeTime: 5
+  spawnInterval: 5
+  blank:
+    m_Handle: 0
+  duration: 10
+  prefab: {fileID: 18922597055320466, guid: fbe2d73c270477b4781d0c283d86928c, type: 3}

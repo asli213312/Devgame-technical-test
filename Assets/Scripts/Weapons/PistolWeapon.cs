@@ -18,7 +18,9 @@ public class PistolWeapon : AbstractWeapon
             (
                 bullet.transform,
                 bullet.transform,
-                FirePoint.forward
+                FirePoint.forward,
+                config.bulletSpeed,
+                config.bulletRadius
             ));
     }
 }

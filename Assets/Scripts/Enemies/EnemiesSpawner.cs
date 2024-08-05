@@ -4,7 +4,6 @@ using UnityEngine;
 public class EnemiesSpawner : MonoBehaviour
 {
     [SerializeField] private EnemiesSpawnerConfig config;
-    [SerializeField] private PlayerController playerController;
     [SerializeField] private Collider mapCollider;
     [SerializeField] private float offScreenDistance;
 
@@ -20,35 +19,29 @@ public class EnemiesSpawner : MonoBehaviour
 
     private List<AbstractEnemyFactory> _factories = new();
 
+    private EnemiesController _enemiesController;
+
     private Bounds _mapBounds;
 
     private float _timeSinceLastSpawn;
     private float _timeSinceLastDecrease;
     private float _spawnInterval;
 
-    private void Awake() 
-    {
-        InitializeFactories();
-
-        _spawnInterval = spawnInterval;
-        _mapBounds = mapCollider.bounds;
-    }
-
-    private void Start() 
-    {
-        OnEnemySpawned += playerController.WeaponCollisionHandler.AddTarget;
-    }
-
-    private void OnDestroy() 
-    {
-        OnEnemySpawned -= playerController.WeaponCollisionHandler.AddTarget;
-    }
-
     private void Update() 
     {
         HandleSpawnFactories();
         HandleSpawnTime();
         HandleEnemies();
+    }
+
+    public void Initialize(EnemiesController enemiesController) 
+    {
+        _enemiesController = enemiesController;
+
+        InitializeFactories();
+
+        _spawnInterval = spawnInterval;
+        _mapBounds = mapCollider.bounds;
     }
 
     private void HandleSpawnFactories() 
@@ -156,17 +149,17 @@ public class EnemiesSpawner : MonoBehaviour
         {
             case WeakEnemyData:
                     WeakEnemyFactory weakFactory = new WeakEnemyFactory(enemyData as WeakEnemyData);
-                    weakFactory.Initialize(playerController.transform);
+                    weakFactory.Initialize(_enemiesController.PlayerController.transform);
                     selectedFactory = weakFactory; 
                     break;
             case FastEnemyData: 
                     FastEnemyFactory fastFactory = new FastEnemyFactory(enemyData as FastEnemyData);
-                    fastFactory.Initialize(playerController.transform);
+                    fastFactory.Initialize(_enemiesController.PlayerController.transform);
                     selectedFactory = fastFactory; 
                     break;
             case ArmoredEnemyData:
                     ArmoredEnemyFactory armoredFactory = new ArmoredEnemyFactory(enemyData as ArmoredEnemyData);
-                    armoredFactory.Initialize(playerController.transform);
+                    armoredFactory.Initialize(_enemiesController.PlayerController.transform);
                     selectedFactory = armoredFactory;
                     break;
         }

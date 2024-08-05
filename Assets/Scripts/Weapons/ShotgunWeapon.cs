@@ -11,20 +11,14 @@ public class ShotgunWeapon : AbstractWeapon
 
     public override void Shoot()
     {
-        int counter = 0;
-
         int pelletCount = config.pelletCount;
         float spreadAngle = config.spreadAngle;
 
         float angleStep = spreadAngle / (pelletCount - 1);
 
-        List<Transform> firedBullets = new();
-        List<AbstractBullet> firedBulletsEntity = new();
-
         for (int i = 0; i < pelletCount; i++)
         {
             Transform bullet = BulletsPool.Get(FirePoint.position);
-            if (bullet != null) firedBullets.Add(bullet);
             bullet.transform.rotation = FirePoint.rotation;
 
             float angle = -spreadAngle / 2 + i * angleStep;
@@ -39,18 +33,15 @@ public class ShotgunWeapon : AbstractWeapon
             (
                 bullet.transform,
                 bullet.transform,
-                direction
+                direction,
+                config.bulletSpeed,
+                config.bulletRadius
             );
 
             if (!ActiveBullets.Contains(bulletEntity))
             {
                 ActiveBullets.Add(bulletEntity);
-                firedBulletsEntity.Add(bulletEntity);
-                counter++;
             }
         }
-
-        Debug.Log("Fired bullets count: " + firedBullets.Count);
-        Debug.Log("Fired bulletsEntity count: " + firedBulletsEntity.Count);
     }
 }

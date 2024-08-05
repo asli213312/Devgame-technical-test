@@ -9,7 +9,7 @@ public class Mover : MonoBehaviour, IMovable
 
     [SerializeReference] private AbstractMoveOptions options;
 
-    float IMovable.Speed { get => _moveStrategy.MoveSpeed; set => _moveStrategy.MoveSpeed = value; }
+    public float Speed { get => _moveStrategy.MoveSpeed; set => _moveStrategy.MoveSpeed = value; }
 
     #region Temp Options
     [SerializeField, HideInInspector] private MoveLinearOptions _moveLinearOptions;

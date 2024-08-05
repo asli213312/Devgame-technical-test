@@ -20,7 +20,7 @@ public abstract class AbstractWeapon : MonoBehaviour, IWeapon
 
     protected virtual int BulletsPoolCount { get; } = 100;
 
-    public void Handle() 
+    public virtual void Handle() 
     {
         HandleBullets();
     }
@@ -50,15 +50,15 @@ public abstract class AbstractWeapon : MonoBehaviour, IWeapon
     {
         if (ActiveBullets.Count <= 0) return;
 
-        Debug.Log("Active bullets: " + ActiveBullets.Count);
+        //Debug.Log("Active bullets: " + ActiveBullets.Count);
 
         for (int i = ActiveBullets.Count - 1; i >= 0; i--)
         {
             var bulletData = ActiveBullets[i];
-            Debug.Log("Active bullet transform", bulletData.Transform.gameObject);
+            //Debug.Log("Active bullet transform", bulletData.Transform.gameObject);
 
-            bulletData.Transform.Translate(Vector3.right * Config.bulletSpeed * Time.deltaTime);
-            bulletData.Update(Config.bulletSpeed);
+            bulletData.Transform.Translate(Vector3.right * bulletData.Speed * Time.deltaTime);
+            bulletData.Update();
 
             if (bulletData.DistanceTravelled > Config.maxDistance)
             {
@@ -66,7 +66,7 @@ public abstract class AbstractWeapon : MonoBehaviour, IWeapon
                 continue;
             }
 
-            if (bulletData.CheckCollision(Config.bulletRadius, out Collider[] hitColliders))
+            if (bulletData.CheckCollision(out Collider[] hitColliders))
             {
                 foreach (var hitCollider in hitColliders)
                 {
@@ -83,7 +83,7 @@ public abstract class AbstractWeapon : MonoBehaviour, IWeapon
         //Debug.Log($"Bullets in weapon {name}: {ActiveBullets.Count}");
     }
 
-    protected virtual void OnEndBullet(Transform bullet) 
+    private void OnEndBullet(Transform bullet) 
     {
         var bulletToRemove = ActiveBullets.FirstOrDefault(b => b.Transform == bullet);
         if (bulletToRemove != null)
