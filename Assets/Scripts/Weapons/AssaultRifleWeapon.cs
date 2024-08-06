@@ -26,13 +26,15 @@ public class AssaultRifleWeapon : AbstractWeapon
 
         bullet.transform.position = FirePoint.position;
 
-        ActiveBullets.Add(new PistolBullet
+        var bulletEntity = new PistolBullet
         (
             bullet.transform,
             bullet.transform,
             direction,
             config.bulletSpeed,
             config.bulletRadius
-        ));
+        );
+
+        ActiveBullets.Add(bulletEntity);
     }
 }

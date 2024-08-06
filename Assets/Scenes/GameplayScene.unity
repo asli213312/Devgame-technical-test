@@ -1502,7 +1502,7 @@ MonoBehaviour:
   moveType: 1
   playerObj: {fileID: 599954714}
   options:
-    rid: 7502081231688826914
+    rid: 7502081231688826959
   _moveLinearOptions:
     moveSpeed: 0
     direction: {x: 0, y: 0, z: 0}
@@ -1511,7 +1511,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 7502081231688826914
+    - rid: 7502081231688826959
       type: {class: MoveOrthogonallyOptions, ns: , asm: Assembly-CSharp}
       data:
         moveSpeed: 5

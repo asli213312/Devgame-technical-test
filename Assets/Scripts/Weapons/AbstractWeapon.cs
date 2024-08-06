@@ -79,7 +79,7 @@ public abstract class AbstractWeapon : MonoBehaviour, IWeapon
 
             if (bulletData.DistanceTravelled > Config.maxDistance)
             {
-                OnEndBullet(bulletData.Transform);
+                OnEndBullet(bulletData);
                 continue;
             }
 
@@ -90,7 +90,7 @@ public abstract class AbstractWeapon : MonoBehaviour, IWeapon
                     if (hitCollider.transform == bulletData.Transform) continue;
                     
                     OnCollideBullet?.Invoke(hitCollider.transform);
-                    OnEndBullet(bulletData.Transform);
+                    OnEndBullet(bulletData);
                     break;
                 }
                 continue;
@@ -100,13 +100,13 @@ public abstract class AbstractWeapon : MonoBehaviour, IWeapon
         //Debug.Log($"Bullets in weapon {name}: {ActiveBullets.Count}");
     }
 
-    private void OnEndBullet(Transform bullet) 
+    private void OnEndBullet(AbstractBullet bulletEntity) 
     {
-        var bulletToRemove = ActiveBullets.FirstOrDefault(b => b.Transform == bullet);
+        var bulletToRemove = ActiveBullets.FirstOrDefault(b => b.Transform == bulletEntity.Transform);
         if (bulletToRemove != null)
         {
             ActiveBullets.Remove(bulletToRemove);
-            BulletsPool.AddToPool(bullet);
+            BulletsPool.AddToPool(bulletToRemove.Transform);
         }
         else 
         {

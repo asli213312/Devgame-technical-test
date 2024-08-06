@@ -18,11 +18,19 @@ public abstract class AbstractBullet
         Radius = radius;
     }
 
-    public virtual void Update() => DistanceTravelled += Speed * Time.deltaTime;
-
     public virtual bool CheckCollision(out Collider[] hitColliders)
     {
         hitColliders = Physics.OverlapSphere(Transform.position, Radius);
         return hitColliders.Length > 0;
+    }
+
+    public virtual void Update() 
+    {
+        UpdateDistance();
+    } 
+
+    private void UpdateDistance() 
+    {
+        DistanceTravelled += Speed * Time.deltaTime;
     }
 }

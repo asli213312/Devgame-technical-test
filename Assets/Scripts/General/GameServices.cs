@@ -14,7 +14,18 @@ public class GameServices : MonoBehaviour
         InitializeServices();
 
         player.Initialize();
+        player.Model.OnDeath += () => Time.timeScale = 0;
         uiMediator.Initialize(player, SceneLoader);
+    }
+
+    private void Start() 
+    {
+        Time.timeScale = 1;
+    }
+
+    private void OnDestroy() 
+    {
+        player.Model.OnDeath -= () => Time.timeScale = 0;
     }
 
     private void InitializeServices() 

@@ -10,17 +10,19 @@ public class PistolWeapon : AbstractWeapon
 
     protected override void HandleShoot() 
     {
-        Transform bullet = BulletsPool.Get(FirePoint.position);
+        Transform bulletTransform = BulletsPool.Get(FirePoint.position);
 
-        bullet.transform.rotation = FirePoint.rotation;
+        bulletTransform.rotation = FirePoint.rotation;
 
-        ActiveBullets.Add(new PistolBullet
-            (
-                bullet.transform,
-                bullet.transform,
-                FirePoint.forward,
-                config.bulletSpeed,
-                config.bulletRadius
-            ));
+        var bulletEntity = new PistolBullet
+        (
+            bulletTransform,
+            bulletTransform,
+            FirePoint.forward,
+            config.bulletSpeed,
+            config.bulletRadius
+        );
+
+        ActiveBullets.Add(bulletEntity);
     }
 }
