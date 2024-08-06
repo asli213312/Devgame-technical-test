@@ -32,8 +32,6 @@ public class UIMediator : MonoBehaviour
 
     private void OnDestroy() 
     {
-        UpdatePlayerScore();
-
         _playerController.Model.OnDeath -= OnPlayerDeath;
         restartButton.onClick.RemoveListener(_sceneLoader.LoadCurrentScene);
         mainMenuButton.onClick.RemoveListener(() => _sceneLoader.LoadScene(0));
@@ -47,22 +45,20 @@ public class UIMediator : MonoBehaviour
         UpdatePlayerHighScore();
     }
 
-    private void UpdatePlayerScore() 
-    {
-        PlayerPrefs.SetInt(Constants.Player.PLAYER_SCORE, scoreCounter.GetValue());
-    }
-
     private void UpdatePlayerHighScore() 
     {
-        int lastHighScore = PlayerPrefs.GetInt(Constants.Player.PLAYER_SCORE);
-        string scoreText = "Score: " + lastHighScore;
+        int lastHighScore = PlayerPrefs.GetInt(Constants.Player.PLAYER_SCORE, 0);
+        int currentScore = scoreCounter.GetValue();
+        string scoreText;
 
-        if (PlayerPrefs.HasKey(Constants.Player.PLAYER_SCORE)) 
+        if (currentScore > lastHighScore) 
         {
-            if (scoreCounter.GetValue() > lastHighScore) 
-            {
-                scoreText = "New record! Score: " + scoreCounter.GetValue();
-            }   
+            PlayerPrefs.SetInt(Constants.Player.PLAYER_SCORE, currentScore);
+            scoreText = "New record! Score: " + currentScore;
+        } 
+        else 
+        {
+            scoreText = "Score: " + currentScore;
         }
 
         gameOverText.text = scoreText;
