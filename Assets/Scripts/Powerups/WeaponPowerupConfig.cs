@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Game/Powerups/Player/Random weapon")]
-public class WeaponPowerupConfig : TimedPowerupConfig
+public class WeaponPowerupConfig : AbstractPowerupConfig
 {
     [SerializeField] public WeaponPowerup prefab;
     [SerializeField] public AbstractWeaponConfig[] weapons;

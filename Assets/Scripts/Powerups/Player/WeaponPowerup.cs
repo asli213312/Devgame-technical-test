@@ -1,11 +1,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponPowerup : PlayerPowerup, ITimedPowerup
+public class WeaponPowerup : PlayerPowerup
 {
     [SerializeField] private WeaponPowerupConfig config;
-
-    float ITimedPowerup.Duration => config.duration;
 
     protected override IPowerupConfig Config { get => config; set => config = value as WeaponPowerupConfig; }
 
@@ -14,11 +12,6 @@ public class WeaponPowerup : PlayerPowerup, ITimedPowerup
     protected override void OnCollidePlayer(PlayerController playerController) 
     {
         playerController.WeaponController.ChooseWeapon(GetRandomUniqueWeapon());
-    }
-
-    void ITimedPowerup.OnTimeEnd() 
-    {
-        PlayerController.WeaponController.ChooseInitialWeapon();
     }
 
     private AbstractWeaponConfig GetRandomUniqueWeapon() 
