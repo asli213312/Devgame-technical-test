@@ -36,6 +36,8 @@ public abstract class AbstractPowerup : MonoBehaviour, IPowerup
     {
         gameObject.SetActive(false);
         OnTrigger?.Invoke(this);
+
+        Debug.Log("Picked powerup: " + name);
     }
 
     protected abstract bool IsTargetFound(GameObject gameObject);

@@ -17,7 +17,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 5602145459372206159, guid: 023ea9235c19f434091bd2e270cdbfa0,
     type: 3}
   maxDistance: 7
-  damage: 5
+  damage: 2
   fireRate: 100
   pelletCount: 5
   spreadAngle: 40

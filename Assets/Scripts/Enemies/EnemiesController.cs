@@ -3,28 +3,35 @@ using UnityEngine;
 public class EnemiesController : MonoBehaviour
 {
     [SerializeField] private EnemiesSpawner spawner;
-    [SerializeField] private PlayerController playerController;
+    [SerializeField] private GameServices services;
 
     public event System.Action<AbstractEnemyEntity> EnemyCollidedPlayer;
 
-    public PlayerController PlayerController => playerController;
+    public PlayerController PlayerController => services.Player;
 
     private void Start() 
     {
         spawner.Initialize(this);
 
-        spawner.OnEnemySpawned += playerController.WeaponController.CollisionHandler.AddTarget;
-        playerController.CollisionHandler.OnCollide += CheckCollisionEnemies;
+        spawner.OnEnemySpawned += OnEnemySpawned;
+        spawner.OnEnemySpawned += services.Player.WeaponController.CollisionHandler.AddTarget;
+        services.Player.CollisionHandler.OnCollide += CheckCollisionEnemies;
 
         EnemyCollidedPlayer += OnPlayerCollided;
     }
 
     private void OnDestroy() 
     {
-        spawner.OnEnemySpawned -= playerController.WeaponController.CollisionHandler.AddTarget;
-        playerController.CollisionHandler.OnCollide -= CheckCollisionEnemies;
+        spawner.OnEnemySpawned -= OnEnemySpawned;
+        spawner.OnEnemySpawned -= services.Player.WeaponController.CollisionHandler.AddTarget;
+        services.Player.CollisionHandler.OnCollide -= CheckCollisionEnemies;
 
-        EnemyCollidedPlayer += OnPlayerCollided;
+        EnemyCollidedPlayer -= OnPlayerCollided;
+    }
+
+    private void OnEnemySpawned(AbstractEnemyEntity enemyEntity) 
+    {
+        enemyEntity.OnDeath += OnEnemyDeath;
     }
 
     private void CheckCollisionEnemies(GameObject gameObject) 
@@ -41,7 +48,14 @@ public class EnemiesController : MonoBehaviour
 
     private void OnPlayerCollided(AbstractEnemyEntity enemyEntity) 
     {
-        if (playerController.Model.IsInvinsibility == false)
-            playerController.gameObject.SetActive(false);
+        if (services.Player.Model.IsInvinsibility == false)
+            services.Player.Model.HandleDeath();
+    }
+
+    private void OnEnemyDeath(AbstractEnemyEntity enemyEntity) 
+    {
+        enemyEntity.OnDeath -= OnEnemyDeath;
+
+        services.UI.ChangeScore(enemyEntity.Data.score);
     }
 }

@@ -22,9 +22,10 @@ public class PlayerController : MonoBehaviour, IZoneInteractable
     private float _rotationSpeed;
     private bool _hasCompletedRotation;
 
-    private void Awake() 
+    public void Initialize() 
     {
         Model = new PlayerModel();
+        Model.OnDeath += OnDeath;
 
         InitializeModules();
 
@@ -38,6 +39,8 @@ public class PlayerController : MonoBehaviour, IZoneInteractable
 
     private void OnDestroy() 
     {
+        Model.OnDeath -= OnDeath;
+
         foreach (var weapon in weapons)
         {
             OnCompleteRotation -= WeaponController.Shoot;   
@@ -82,6 +85,11 @@ public class PlayerController : MonoBehaviour, IZoneInteractable
             OnCompleteRotation?.Invoke();
             _hasCompletedRotation = true;
         }
+    }
+
+    private void OnDeath() 
+    {
+        gameObject.SetActive(false);
     }
 
     private void InitializeModules() 

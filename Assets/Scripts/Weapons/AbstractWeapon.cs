@@ -50,7 +50,6 @@ public abstract class AbstractWeapon : MonoBehaviour, IWeapon
         if (IsCanFire())
         {
             FireShoot();
-            Debug.Log("Fired weapon");
         }
     }
 

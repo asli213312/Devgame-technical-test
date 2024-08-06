@@ -11,7 +11,7 @@ public class DamageZone : AbstractZone
         
         if (context is PlayerController playerController && playerController.Model.IsInvinsibility == false) 
         {
-            other.gameObject.SetActive(false);
+            playerController.Model.HandleDeath();
         }
 
         InvokeTrigger();
